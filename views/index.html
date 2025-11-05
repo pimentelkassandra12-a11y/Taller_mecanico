@@ -1096,145 +1096,198 @@
             }
         });
 
-        // Iniciar sesión
-        loginFormElement.addEventListener('submit', function(e) {
+        // Iniciar sesión (usa la API /api/login)
+        loginFormElement.addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-            
-            // Simulación de autenticación (en un caso real, esto se haría con un servidor)
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const user = users.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                // Guardar sesión
-                localStorage.setItem('currentUser', JSON.stringify(user));
+
+            try {
+                const resp = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario: email, contra: password })
+                });
+                const data = await resp.json();
+                if (!data.ok) {
+                    loginMessage.textContent = data.message || 'Credenciales incorrectas';
+                    return;
+                }
+
+                // Guardar sesión local (añadimos un nombre si no existe)
+                const serverUser = data.user;
+                const clientUser = {
+                    id: serverUser.id,
+                    name: serverUser.usuario || serverUser.id,
+                    email: serverUser.usuario || serverUser.id
+                };
+                localStorage.setItem('currentUser', JSON.stringify(clientUser));
                 checkLoginStatus();
                 authModal.style.display = 'none';
                 clearMessages();
                 loginFormElement.reset();
                 updateUsersCount();
-            } else {
-                loginMessage.textContent = 'Credenciales incorrectas. Inténtalo de nuevo.';
+                // Si el login se realizó desde la página pública (inicio.html o '/'), redirigir al dashboard
+                if (window.location.pathname === '/' || window.location.pathname.endsWith('inicio.html')) {
+                    window.location.href = '/views/index.html';
+                }
+            } catch (err) {
+                console.error('Error en login:', err);
+                loginMessage.textContent = 'Error de conexión. Intenta más tarde.';
             }
         });
 
-        // Registrarse
-        registerFormElement.addEventListener('submit', function(e) {
+        // Registrarse (usa la API /api/register)
+        registerFormElement.addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('registerName').value;
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('registerConfirmPassword').value;
-            
+
             // Validaciones
             if (password !== confirmPassword) {
                 registerMessage.textContent = 'Las contraseñas no coinciden.';
                 return;
             }
-            
+
             if (password.length < 6) {
                 registerMessage.textContent = 'La contraseña debe tener al menos 6 caracteres.';
                 return;
             }
-            
-            // Verificar si el usuario ya existe
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const existingUser = users.find(u => u.email === email);
-            
-            if (existingUser) {
-                registerMessage.textContent = 'Ya existe un usuario con este correo electrónico.';
-                return;
+
+            try {
+                const resp = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario: email, contra: password })
+                });
+                const data = await resp.json();
+                if (!data.ok) {
+                    registerMessage.textContent = data.message || 'No se pudo registrar el usuario.';
+                    return;
+                }
+
+                // Guardar sesión local con nombre provisto por el form
+                const serverUser = data.user;
+                const clientUser = {
+                    id: serverUser.id,
+                    name: name || serverUser.usuario,
+                    email: serverUser.usuario
+                };
+                localStorage.setItem('currentUser', JSON.stringify(clientUser));
+                checkLoginStatus();
+                authModal.style.display = 'none';
+                clearMessages();
+                registerFormElement.reset();
+                updateUsersCount();
+                // Si el registro se hizo desde la página pública, llevar al dashboard
+                if (window.location.pathname === '/' || window.location.pathname.endsWith('inicio.html')) {
+                    window.location.href = '/views/index.html';
+                }
+            } catch (err) {
+                console.error('Error al registrar:', err);
+                registerMessage.textContent = 'Error de conexión. Intenta más tarde.';
             }
-            
-            // Crear nuevo usuario
-            const newUser = {
-                id: Date.now(), // ID único basado en timestamp
-                name: name,
-                email: email,
-                password: password,
-                registrationDate: new Date().toLocaleDateString('es-ES')
-            };
-            
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            // Iniciar sesión automáticamente
-            localStorage.setItem('currentUser', JSON.stringify(newUser));
-            checkLoginStatus();
-            authModal.style.display = 'none';
-            clearMessages();
-            registerFormElement.reset();
-            updateUsersCount();
         });
 
         // Cerrar sesión
         logoutBtn.addEventListener('click', function() {
             localStorage.removeItem('currentUser');
             checkLoginStatus();
+            // Volver a la página pública de inicio
+            window.location.href = '/';
         });
 
-        // Mostrar lista de usuarios
-        function showUsersList() {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
+        // Mostrar lista de usuarios (consume /api/users)
+        async function showUsersList() {
             usersList.innerHTML = '';
-            
-            if (users.length === 0) {
-                usersList.innerHTML = '<p>No hay usuarios registrados.</p>';
-                return;
+            try {
+                const resp = await fetch('/api/users');
+                const data = await resp.json();
+                if (!data.ok) {
+                    usersList.innerHTML = '<p>No se pudieron obtener los usuarios.</p>';
+                    return;
+                }
+
+                const users = data.users || [];
+                if (users.length === 0) {
+                    usersList.innerHTML = '<p>No hay usuarios registrados.</p>';
+                    return;
+                }
+
+                users.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.className = 'user-item';
+                    userItem.innerHTML = `
+                        <strong>${user.usuario || user.email || user.id}</strong>
+                        <div class="email">ID: ${user.id}</div>
+                    `;
+                    usersList.appendChild(userItem);
+                });
+            } catch (err) {
+                console.error('Error al obtener usuarios:', err);
+                usersList.innerHTML = '<p>Error al cargar usuarios.</p>';
             }
-            
-            users.forEach(user => {
-                const userItem = document.createElement('div');
-                userItem.className = 'user-item';
-                userItem.innerHTML = `
-                    <strong>${user.name}</strong>
-                    <div class="email">📧 ${user.email}</div>
-                    <div class="date">📅 Registrado: ${user.registrationDate || 'Fecha no disponible'}</div>
-                `;
-                usersList.appendChild(userItem);
-            });
         }
 
-        // Actualizar contador de usuarios
-        function updateUsersCount() {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
+        // Actualizar contador de usuarios (si hay sesión, intenta obtener número desde API)
+        async function updateUsersCount() {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            
-            if (currentUser) {
-                usersCount.textContent = `${users.length} usuarios`;
+            if (!currentUser) {
+                usersCount.classList.add('hidden');
+                return;
+            }
+
+            try {
+                const resp = await fetch('/api/users');
+                const data = await resp.json();
+                const count = (data.users && data.users.length) || 0;
+                usersCount.textContent = `${count} usuarios`;
                 usersCount.classList.remove('hidden');
-            } else {
+            } catch (err) {
+                console.warn('No se pudo actualizar el contador de usuarios:', err);
                 usersCount.classList.add('hidden');
             }
         }
 
-        // Exportar a JSON
-        exportJson.addEventListener('click', function() {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const dataStr = JSON.stringify(users, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = 'usuarios_taller_pimentel.json';
-            link.click();
+        // Exportar a JSON / CSV (usa datos de la API)
+        exportJson.addEventListener('click', async function() {
+            try {
+                const resp = await fetch('/api/users');
+                const data = await resp.json();
+                const users = (data.users || []).map(u => ({ usuario: u.usuario, id: u.id }));
+                const dataStr = JSON.stringify(users, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = 'usuarios_taller_pimentel.json';
+                link.click();
+            } catch (err) {
+                console.error('Error al exportar JSON:', err);
+                alert('No se pudo exportar.');
+            }
         });
 
         // Exportar a CSV
-        exportCsv.addEventListener('click', function() {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            let csv = 'Nombre,Email,Fecha de Registro\n';
-            
-            users.forEach(user => {
-                csv += `"${user.name}","${user.email}","${user.registrationDate}"\n`;
-            });
-            
-            const dataBlob = new Blob([csv], {type: 'text/csv'});
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = 'usuarios_taller_pimentel.csv';
-            link.click();
+        exportCsv.addEventListener('click', async function() {
+            try {
+                const resp = await fetch('/api/users');
+                const data = await resp.json();
+                const users = data.users || [];
+                let csv = 'Usuario,ID\n';
+                users.forEach(u => {
+                    csv += `"${u.usuario}","${u.id}"\n`;
+                });
+                const dataBlob = new Blob([csv], {type: 'text/csv'});
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = 'usuarios_taller_pimentel.csv';
+                link.click();
+            } catch (err) {
+                console.error('Error al exportar CSV:', err);
+                alert('No se pudo exportar.');
+            }
         });
 
         // Verificar estado de inicio de sesión
