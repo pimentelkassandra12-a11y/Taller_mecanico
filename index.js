@@ -29,14 +29,34 @@ try {
   const admin = require('firebase-admin');
   const serviceAccountPath = path.join(__dirname, 'firebase_key.json');
 
-  if (!fs.existsSync(serviceAccountPath)) {
-    console.warn('Advertencia: no se encontró firebase_key.json en la raíz del proyecto. Asegúrate de añadirlo. La API de usuarios no funcionará sin las credenciales.');
+  // 1) Preferir variable de entorno FIREBASE_SERVICE_ACCOUNT (JSON string)
+  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    try {
+      const sa = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+      admin.initializeApp({ credential: admin.credential.cert(sa) });
+      db = admin.firestore();
+      console.log('[FIREBASE] Inicializado desde variable de entorno FIREBASE_SERVICE_ACCOUNT');
+    } catch (err) {
+      console.error('[FIREBASE] Error parseando FIREBASE_SERVICE_ACCOUNT:', err && err.message);
+    }
+  }
+
+  // 2) Fallback a archivo local firebase_key.json (útil en desarrollo local)
+  if (!db && fs.existsSync(serviceAccountPath)) {
+    try {
+      const serviceAccount = require(serviceAccountPath);
+      admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+      db = admin.firestore();
+      console.log('[FIREBASE] Inicializado desde firebase_key.json (archivo local)');
+    } catch (err) {
+      console.error('[FIREBASE] Error al inicializar desde archivo:', err && err.message);
+    }
+  }
+
+  // 3) Si no se pudo inicializar, emitir advertencia con instrucciones para Render
+  if (!db) {
+    console.warn('[FIREBASE] No se inicializó Firestore. Añade la variable de entorno FIREBASE_SERVICE_ACCOUNT con el JSON de la cuenta de servicio o sube firebase_key.json en la raíz para desarrollo local.');
   } else {
-    const serviceAccount = require(serviceAccountPath);
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
-    });
-    db = admin.firestore();
     console.log('Conexión a Firestore inicializada.');
     // Log ping to Firestore to verify connectivity
     db.listCollections().then(cols => {
@@ -46,7 +66,7 @@ try {
     });
   }
 } catch (err) {
-  console.warn('firebase-admin no está instalado o ocurrió un error al inicializar Firebase Admin:', err.message);
+  console.warn('firebase-admin no está instalado o ocurrió un error al inicializar Firebase Admin:', err && err.message);
 }
 
 // API: registrar usuario (hash de contraseña)
@@ -158,7 +178,9 @@ app.get('/api/users', async (req, res) => {
 });
 
 // Rutas principales: servir los HTML desde la carpeta views
-app.get('/', (req, res) => {
+// La raíz ya está configurada para servir 'views/inicio.html' más arriba.
+// Añadimos una ruta limpia para el dashboard y mantenemos acceso a index/inicio si se piden explícitamente.
+app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
