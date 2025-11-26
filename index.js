@@ -10,22 +10,58 @@ app.use(express.json());
 // Servir archivos estáticos desde la raíz del proyecto (CSS, imágenes, música, etc.)
 app.use(express.static(path.join(__dirname)));
 
-// Inicializar Firebase Admin usando la llave local `firebase_key.json`
+// Inicializar Firebase Admin (soporta env vars para Render + fallback a firebase_key.json)
 let db = null;
 const bcrypt = require('bcryptjs');
 try {
   const admin = require('firebase-admin');
-  const serviceAccountPath = path.join(__dirname, 'firebase_key.json');
 
-  if (!fs.existsSync(serviceAccountPath)) {
-    console.warn('Advertencia: no se encontró firebase_key.json en la raíz del proyecto. Asegúrate de añadirlo. La API de usuarios no funcionará sin las credenciales.');
-  } else {
-    const serviceAccount = require(serviceAccountPath);
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
-    });
-    db = admin.firestore();
-    console.log('Conexión a Firestore inicializada.');
+  let initialized = false;
+  // 1) FIREBASE_SERVICE_ACCOUNT_B64: base64(JSON)
+  if (process.env.FIREBASE_SERVICE_ACCOUNT_B64) {
+    try {
+      const jsonStr = Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_B64, 'base64').toString('utf8');
+      const serviceAccount = JSON.parse(jsonStr);
+      admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+      db = admin.firestore();
+      initialized = true;
+      console.log('Conexión a Firestore inicializada desde FIREBASE_SERVICE_ACCOUNT_B64');
+    } catch (err) {
+      console.warn('Fallo al parsear FIREBASE_SERVICE_ACCOUNT_B64:', err.message);
+    }
+  }
+
+  // 2) FIREBASE_SERVICE_ACCOUNT: JSON string
+  if (!initialized && process.env.FIREBASE_SERVICE_ACCOUNT) {
+    try {
+      const serviceAccount = typeof process.env.FIREBASE_SERVICE_ACCOUNT === 'string'
+        ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
+        : process.env.FIREBASE_SERVICE_ACCOUNT;
+      admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+      db = admin.firestore();
+      initialized = true;
+      console.log('Conexión a Firestore inicializada desde FIREBASE_SERVICE_ACCOUNT');
+    } catch (err) {
+      console.warn('Fallo al parsear FIREBASE_SERVICE_ACCOUNT:', err.message);
+    }
+  }
+
+  // 3) Fallback a firebase_key.json en la raíz
+  if (!initialized) {
+    const serviceAccountPath = path.join(__dirname, 'firebase_key.json');
+    if (fs.existsSync(serviceAccountPath)) {
+      try {
+        const serviceAccount = require(serviceAccountPath);
+        admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+        db = admin.firestore();
+        initialized = true;
+        console.log('Conexión a Firestore inicializada desde firebase_key.json');
+      } catch (err) {
+        console.warn('Error al inicializar Firebase Admin con firebase_key.json:', err.message);
+      }
+    } else {
+      console.warn('Advertencia: no se encontró firebase_key.json en la raíz del proyecto y no se proporcionaron credenciales por ENV. La API de usuarios no funcionará sin las credenciales.');
+    }
   }
 } catch (err) {
   console.warn('firebase-admin no está instalado o ocurrió un error al inicializar Firebase Admin:', err.message);
@@ -116,6 +152,17 @@ app.get('/api/users', async (req, res) => {
     console.error('Error al obtener usuarios:', err);
     return res.status(500).json({ ok: false, message: 'Error interno' });
   }
+});
+
+// Endpoint de debug para verificar inicialización de Firestore
+app.get('/debug/db', (req, res) => {
+  if (process.env.DEBUG_TOKEN) {
+    const token = req.headers['x-debug-token'] || req.query.token;
+    if (!token || token !== process.env.DEBUG_TOKEN) return res.status(403).json({ ok: false, message: 'Forbidden' });
+  }
+  const hasLocal = fs.existsSync(path.join(__dirname, 'firebase_key.json'));
+  const source = process.env.FIREBASE_SERVICE_ACCOUNT_B64 ? 'env_b64' : (process.env.FIREBASE_SERVICE_ACCOUNT ? 'env_json' : (hasLocal ? 'local_file' : 'none'));
+  return res.json({ ok: true, initialized: !!db, source });
 });
 
 // Rutas principales: servir los HTML desde la carpeta views
