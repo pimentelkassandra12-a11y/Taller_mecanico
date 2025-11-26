@@ -154,12 +154,8 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-// Endpoint de debug para verificar inicialización de Firestore
+// Endpoint de debug para verificar inicialización de Firestore (sin protección por defecto)
 app.get('/debug/db', (req, res) => {
-  if (process.env.DEBUG_TOKEN) {
-    const token = req.headers['x-debug-token'] || req.query.token;
-    if (!token || token !== process.env.DEBUG_TOKEN) return res.status(403).json({ ok: false, message: 'Forbidden' });
-  }
   const hasLocal = fs.existsSync(path.join(__dirname, 'firebase_key.json'));
   const source = process.env.FIREBASE_SERVICE_ACCOUNT_B64 ? 'env_b64' : (process.env.FIREBASE_SERVICE_ACCOUNT ? 'env_json' : (hasLocal ? 'local_file' : 'none'));
   return res.json({ ok: true, initialized: !!db, source });
