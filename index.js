@@ -178,4 +178,5 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en http://localhost:${PORT}`);
+  console.log('DEBUG_DB endpoint disponible en /debug/db');
 });
