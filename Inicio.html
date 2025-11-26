@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesión - Taller Pimentel</title>
+    <link rel="stylesheet" href="views/style.css">
+    <style>
+        /* Pequeños estilos locales para el formulario */
+        .container { max-width: 420px; margin: 80px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); text-align: center; }
+        .container h1 { margin-bottom: 20px; color: #1E293B; }
+        .container label { display:block; text-align:left; margin:8px 0 6px; }
+        .container input { width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; }
+        .container button { margin-top:16px; }
+        .msg { margin-top:12px; color: red; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Iniciar Sesión</h1>
+    <form id="inicioLoginForm">
+        <label for="loginEmail">Correo electrónico:</label>
+        <input type="email" id="loginEmail" required>
+
+        <label for="loginPassword">Contraseña:</label>
+        <input type="password" id="loginPassword" required>
+
+        <button type="submit">Entrar</button>
+    </form>
+    <div class="msg" id="loginMsg"></div>
+    <p style="margin-top:12px;">¿No tienes cuenta? <a href="/views/index.html">Regístrate</a></p>
+</div>
+
+<script>
+    // Si ya hay usuario en sesión, ir al dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser) {
+            // Redirigir al dashboard
+            window.location.href = '/views/index.html';
+            return;
+        }
+
+        const form = document.getElementById('inicioLoginForm');
+        const msg = document.getElementById('loginMsg');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            msg.textContent = '';
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const resp = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario: email, contra: password })
+                });
+                const data = await resp.json();
+                if (!data.ok) {
+                    msg.textContent = data.message || 'Credenciales incorrectas';
+                    return;
+                }
+
+                const serverUser = data.user;
+                const clientUser = {
+                    id: serverUser.id,
+                    name: serverUser.usuario || serverUser.id,
+                    email: serverUser.usuario || serverUser.id
+                };
+                localStorage.setItem('currentUser', JSON.stringify(clientUser));
+                // Redirigir al dashboard
+                window.location.href = '/views/index.html';
+            } catch (err) {
+                console.error('Error en login:', err);
+                msg.textContent = 'Error de conexión. Intenta más tarde.';
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,3985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Pimentel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1E293B;
+            --secondary-color: #FACC15;
+            --accent-color: #EAB308;
+            --light-color: #f5f5f5;
+            --text-color: #1E293B;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            background-color: var(--white);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            text-align: left;
+        }
+
+        .logo-text h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .logo-text .tagline {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: var(--white);
+            background-color: rgba(250, 204, 21, 0.1);
+        }
+
+        .user-controls {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .user-controls button {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .user-controls button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .user-info {
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Sección de logotipo principal */
+        .logo-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2D3748 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .logo-hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo-hero .logo-large {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--secondary-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-hero .logo-large:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-hero-text {
+            text-align: center;
+        }
+
+        .logo-hero-text h2 {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-hero-text p {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            max-width: 600px;
+            font-weight: 500;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.8)), url('https://images.unsplash.com/photo-1603712607223-2de2915df081?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 10px auto;
+        }
+
+        /* Sección de servicios mejorada */
+        .servicios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .servicio-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .servicio-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .servicio-content {
+            padding: 20px;
+        }
+
+        .servicio-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .servicio-desc {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Botones de servicio agregados */
+        .btn-servicio {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-servicio:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Modal para detalles del servicio */
+        .servicio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .servicio-modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .servicio-detalles {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .servicio-detalles h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .servicio-detalles p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Galería mejorada */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .galeria-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .galeria-item:hover {
+            transform: scale(1.03);
+        }
+
+        .galeria-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Formularios */
+        form {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="file"], button {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .auth-toggle {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .auth-toggle a {
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Botones flotantes */
+        #btn-music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            width: auto;
+            min-width: 140px;
+            transition: background-color 0.3s;
+        }
+
+        #btn-music:hover {
+            background-color: #0056b3;
+        }
+
+        #btn-save-users {
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            z-index: 1000;
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            width: auto;
+            min-width: 140px;
+            transition: background-color 0.3s;
+        }
+
+        #btn-save-users:hover {
+            background-color: #218838;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo .logo {
+            width: 70px;
+            height: 70px;
+        }
+
+        .footer-logo-text h3 {
+            color: var(--secondary-color);
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            color: green;
+            margin-top: 10px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .users-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .user-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .user-item strong {
+            color: var(--primary-color);
+        }
+
+        .user-item .email {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .users-count {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .export-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .export-buttons button {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        #exportJson {
+            background-color: #17a2b8;
+        }
+
+        #exportCsv {
+            background-color: #6c757d;
+        }
+
+        /* Sección de contacto */
+        .contacto-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+        }
+
+        .contacto-item {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contacto-item i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--secondary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-text {
+                text-align: center;
+            }
+
+            .logo-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo-hero .logo-large {
+                width: 150px;
+                height: 150px;
+            }
+
+            .logo-hero-text h2 {
+                font-size: 2.2rem;
+            }
+
+            .logo-hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .user-controls {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+            }
+
+            #btn-music, #btn-save-users {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 5px;
+                display: inline-block;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-logo .logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 90px;
+                height: 90px;
+            }
+
+            .logo-hero .logo-large {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .logo-hero-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botón de música -->
+<button id="btn-music">🎵 Reproducir Música Suave</button>
+
+<!-- Botón para guardar y ver usuarios -->
+<button id="btn-save-users">💾 Ver Usuarios Guardados</button>
+
+<audio id="musica" loop style="display: none;">
+    <source src="Musica/permis_de_conduire.mp3.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Modal de autenticación -->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="loginForm">
+            <h2>Iniciar Sesión</h2>
+
+            <form id="loginFormElement">
+                <div class="form-group">
+                    <label for="loginEmail">Correo electrónico:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+            <div class="auth-toggle">
+                <p>¿No tienes cuenta? <a id="showRegister">Regístrate aquí</a></p>
+            </div>
+            <div id="loginMessage" class="error-message"></div>
+        </div>
+
+        <div id="registerForm" class="hidden">
+            <h2>Registrarse</h2>
+            <form id="registerFormElement">
+                <div class="form-group">
+                    <label for="registerName">Nombre completo:</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Correo electrónico:</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña:</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirmar contraseña:</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit">Registrarse</button>
+            </form>
+            <div class="auth-toggle">
+                <p>¿Ya tienes cuenta? <a id="showLogin">Inicia sesión aquí</a></p>
+            </div>
+            <div id="registerMessage" class="error-message"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de usuarios guardados -->
+<div id="usersModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Usuarios Registrados</h2>
+        <div id="usersList" class="users-list">
+            <!-- Los usuarios se cargarán aquí dinámicamente -->
+        </div>
+        <div class="export-buttons">
+            <button id="exportJson" type="button">Exportar JSON</button>
+            <button id="exportCsv" type="button">Exportar CSV</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para detalles del servicio -->
+<div id="servicioModal" class="servicio-modal">
+    <div class="servicio-modal-content">
+        <span class="close" id="closeServicioModal">&times;</span>
+        <div class="servicio-detalles">
+            <h3 id="modalServicioTitulo"></h3>
+            <p id="modalServicioDescripcion"></p>
+        </div>
+        <button id="confirmarServicio">Confirmar Servicio</button>
+    </div>
+</div>
+
+<header>
+    <div class="user-controls">
+        <div id="userInfo" class="user-info hidden">
+            <span id="userName"></span>
+            <button id="logoutBtn">Cerrar Sesión</button>
+        </div>
+        <button id="loginBtn">Iniciar Sesión / Registrarse</button>
+        <div id="usersCount" class="users-count hidden">0 usuarios</div>
+    </div>
+
+    <div class="header-content">
+        <div class="logo-container">
+            <!-- Logotipo en el header -->
+            <img src="Imagenes/taller_mecanico_pimentel.jpg" alt="Taller Pimentel" class="logo">
+            <div class="logo-text">
+                <h1>Taller Pimentel</h1>
+                <div class="tagline">Expertos en reparación automotriz</div>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Sección de logotipo principal al inicio -->
+
+
+<section id="inicio" class="hero">
+    <h2>Expertos en reparación automotriz</h2>
+    <p>Atención profesional para tu vehículo. Servicio rápido, confiable y garantizado.</p>
+</section>
+
+<section id="servicios">
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <div class="servicios-container">
+        <div class="servicio-card">
+            <img src="Imagenes/mantenimiento.jpg.jpg" alt="Mantenimiento preventivo y correctivo" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Mantenimiento</h3>
+                <p class="servicio-desc">Mantenimiento preventivo y correctivo para garantizar el óptimo funcionamiento de tu vehículo.</p>
+                <button class="btn-servicio" data-servicio="Mantenimiento" data-descripcion="Nuestro servicio de mantenimiento incluye revisión general completa, cambio de aceite y filtros, limpieza de sistemas, verificación de fluidos, y ajuste de componentes para garantizar el máximo rendimiento de tu vehículo. Realizamos mantenimiento preventivo y correctivo con repuestos de calidad.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/diagnostico computarisado.jpg.jpg" alt="Diagnóstico computarizado" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Diagnóstico</h3>
+                <p class="servicio-desc">Diagnóstico computarizado avanzado para identificar problemas de manera precisa y rápida.</p>
+                <button class="btn-servicio" data-servicio="Diagnóstico Computarizado" data-descripcion="Utilizamos equipos de diagnóstico profesional de última generación para analizar el sistema electrónico completo de tu vehículo. Identificamos fallas en sensores, módulos de control, sistemas de inyección y más. Diagnóstico preciso que ahorra tiempo y dinero en reparaciones.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/frenos y suspencion.jpg.jpg" alt="Frenos, suspensión y dirección" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Frenos y Suspensión</h3>
+                <p class="servicio-desc">Reparación y mantenimiento de frenos, suspensión y dirección para tu seguridad.</p>
+                <button class="btn-servicio" data-servicio="Frenos y Suspensión" data-descripcion="Servicio especializado en sistemas de frenos y suspensión. Incluye revisión y reemplazo de pastillas, discos, tambores, líquido de frenos, amortiguadores, resortes, alineación de dirección y balanceo de ruedas. Garantizamos tu seguridad en la carretera con componentes de alta calidad.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/sistema electrico.jpg.jpg" alt="Servicio eléctrico y afinaciones" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Sistema Eléctrico</h3>
+                <p class="servicio-desc">Servicio eléctrico especializado y afinaciones para optimizar el rendimiento de tu auto.</p>
+                <button class="btn-servicio" data-servicio="Sistema Eléctrico" data-descripcion="Expertos en reparación de sistemas eléctricos automotrices. Reparamos alternadores, baterías, sensores, luces, módulos electrónicos, cableado y sistemas de carga. También realizamos afinaciones electrónicas para optimizar el rendimiento del motor y reducir el consumo de combustible.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="galeria">
+    <h2 class="section-title">Galería</h2>
+    <div class="galeria-grid">
+        <div class="galeria-item">
+            <img src="Imagenes/mecanicos trabajando.avif" alt="Mecánico trabajando" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/trabajador.avif" alt="Taller de autos" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/taller mecanico.avif" alt="Interior del taller" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/reparacion de motores.avif" alt="Reparación de motor" class="galeria-img">
+        </div>
+    </div>
+</section>
+
+<section id="contacto">
+    <h2 class="section-title">Contacto</h2>
+    <div class="contacto-info">
+        <div class="contacto-item">
+            <i>📍</i>
+            <h3>Dirección</h3>
+            <p>Calle Principal #123, Ciudad del Sol</p>
+        </div>
+        <div class="contacto-item">
+            <i>📞</i>
+            <h3>Teléfono</h3>
+            <p>(123) 456-7890</p>
+        </div>
+        <div class="contacto-item">
+            <i>✉️</i>
+            <h3>Correo</h3>
+            <p><a href="mailto:tallerpimentel@gmail.com">tallerpimentel@gmail.com</a></p>
+        </div>
+        <div class="contacto-item">
+            <i>🕒</i>
+            <h3>Horario</h3>
+            <p>Lun - Vie: 8:00 AM - 6:00 PM<br>Sáb: 8:00 AM - 2:00 PM</p>
+        </div>
+    </div>
+    <iframe src="https://www.google.com/maps?q=Ciudad%20del%20Sol%20Mexico&output=embed" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <!-- Logotipo en el footer (local) -->
+            <img src="Imagenes/taller_mecanico_pimentel.jpg" alt="Taller Pimentel" class="logo">
+            <div class="footer-logo-text">
+                <h3>Taller Pimentel</h3>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#galeria">Galería</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+        <p>© 2025 Taller Pimentel - Todos los derechos reservados</p>
+    </div>
+</footer>
+
+<script>
+    // Elementos del DOM
+    const authModal = document.getElementById('authModal');
+    const usersModal = document.getElementById('usersModal');
+    const servicioModal = document.getElementById('servicioModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userInfo = document.getElementById('userInfo');
+    const userName = document.getElementById('userName');
+    const usersCount = document.getElementById('usersCount');
+    const closeModal = document.querySelectorAll('.close');
+    const showRegister = document.getElementById('showRegister');
+    const showLogin = document.getElementById('showLogin');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const loginFormElement = document.getElementById('loginFormElement');
+    const registerFormElement = document.getElementById('registerFormElement');
+    const loginMessage = document.getElementById('loginMessage');
+    const registerMessage = document.getElementById('registerMessage');
+    const btnSaveUsers = document.getElementById('btn-save-users');
+    const usersList = document.getElementById('usersList');
+    const exportJson = document.getElementById('exportJson');
+    const exportCsv = document.getElementById('exportCsv');
+
+    // Elementos de audio
+    const btnMusic = document.getElementById('btn-music');
+    const musica = document.getElementById('musica');
+
+    // Elementos del modal de servicio
+    const modalServicioTitulo = document.getElementById('modalServicioTitulo');
+    const modalServicioDescripcion = document.getElementById('modalServicioDescripcion');
+    const confirmarServicio = document.getElementById('confirmarServicio');
+    const closeServicioModal = document.getElementById('closeServicioModal');
+
+    // Verificar si hay un usuario logueado al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLoginStatus();
+        updateUsersCount();
+        setupServiceButtons();
+    });
+
+    // Configurar botones de servicio
+    function setupServiceButtons() {
+        const serviceButtons = document.querySelectorAll('.btn-servicio');
+        serviceButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const servicio = this.getAttribute('data-servicio');
+                const descripcion = this.getAttribute('data-descripcion');
+
+                modalServicioTitulo.textContent = servicio;
+                modalServicioDescripcion.textContent = descripcion;
+                servicioModal.style.display = 'flex';
+            });
+        });
+    }
+
+    // Confirmar servicio
+    confirmarServicio.addEventListener('click', function() {
+        const servicio = modalServicioTitulo.textContent;
+        alert(`✅ Has seleccionado el servicio: ${servicio}\n\nPronto nos pondremos en contacto contigo para coordinar los detalles.`);
+        servicioModal.style.display = 'none';
+    });
+
+    // Cerrar modal de servicio
+    closeServicioModal.addEventListener('click', function() {
+        servicioModal.style.display = 'none';
+    });
+
+    // Cerrar modal de servicio al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        if (event.target === servicioModal) {
+            servicioModal.style.display = 'none';
+        }
+    });
+
+    // Abrir modal de autenticación
+    loginBtn.addEventListener('click', function() {
+        authModal.style.display = 'flex';
+    });
+
+    // Abrir modal de usuarios
+    btnSaveUsers.addEventListener('click', function() {
+        showUsersList();
+        usersModal.style.display = 'flex';
+    });
+
+    // Cerrar modales
+    closeModal.forEach(closeBtn => {
+        closeBtn.addEventListener('click', function() {
+            authModal.style.display = 'none';
+            usersModal.style.display = 'none';
+        });
+    });
+
+    // Cambiar a formulario de registro
+    showRegister.addEventListener('click', function() {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        clearMessages();
+    });
+
+    // Cambiar a formulario de inicio de sesión
+    showLogin.addEventListener('click', function() {
+        registerForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+        clearMessages();
+    });
+
+    // Cerrar modal al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        if (event.target === authModal) {
+            authModal.style.display = 'none';
+        }
+        if (event.target === usersModal) {
+            usersModal.style.display = 'none';
+        }
+    });
+
+    // Iniciar sesión (usa la API /api/login)
+    loginFormElement.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            const resp = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: email, contra: password })
+            });
+            const data = await resp.json();
+            if (!data.ok) {
+                loginMessage.textContent = data.message || 'Credenciales incorrectas';
+                return;
+            }
+
+            // Guardar sesión local (añadimos un nombre si no existe)
+            const serverUser = data.user;
+            const clientUser = {
+                id: serverUser.id,
+                name: serverUser.usuario || serverUser.id,
+                email: serverUser.usuario || serverUser.id
+            };
+            localStorage.setItem('currentUser', JSON.stringify(clientUser));
+            checkLoginStatus();
+            authModal.style.display = 'none';
+            clearMessages();
+            loginFormElement.reset();
+            updateUsersCount();
+            // Si el login se realizó desde la página pública (inicio.html o '/'), redirigir al dashboard
+            if (window.location.pathname === '/' || window.location.pathname.endsWith('inicio.html')) {
+                window.location.href = '/views/index.html';
+            }
+        } catch (err) {
+            console.error('Error en login:', err);
+            loginMessage.textContent = 'Error de conexión. Intenta más tarde.';
+        }
+    });
+
+    // Registrarse (usa la API /api/register)
+    registerFormElement.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+        // Validaciones
+        if (password !== confirmPassword) {
+            registerMessage.textContent = 'Las contraseñas no coinciden.';
+            return;
+        }
+
+        if (password.length < 6) {
+            registerMessage.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+            return;
+        }
+
+        try {
+            const resp = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: email, contra: password })
+            });
+            const data = await resp.json();
+            if (!data.ok) {
+                registerMessage.textContent = data.message || 'No se pudo registrar el usuario.';
+                return;
+            }
+
+            // Guardar sesión local con nombre provisto por el form
+            const serverUser = data.user;
+            const clientUser = {
+                id: serverUser.id,
+                name: name || serverUser.usuario,
+                email: serverUser.usuario
+            };
+            localStorage.setItem('currentUser', JSON.stringify(clientUser));
+            checkLoginStatus();
+            authModal.style.display = 'none';
+            clearMessages();
+            registerFormElement.reset();
+            updateUsersCount();
+            // Si el registro se hizo desde la página pública, llevar al dashboard
+            if (window.location.pathname === '/' || window.location.pathname.endsWith('inicio.html')) {
+                window.location.href = '/views/index.html';
+            }
+        } catch (err) {
+            console.error('Error al registrar:', err);
+            registerMessage.textContent = 'Error de conexión. Intenta más tarde.';
+        }
+    });
+
+    // Cerrar sesión
+    logoutBtn.addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        checkLoginStatus();
+        // Volver a la página pública de inicio
+        window.location.href = '/';
+    });
+
+    // Mostrar lista de usuarios (consume /api/users)
+    async function showUsersList() {
+        usersList.innerHTML = '';
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            if (!data.ok) {
+                usersList.innerHTML = '<p>No se pudieron obtener los usuarios.</p>';
+                return;
+            }
+
+            const users = data.users || [];
+            if (users.length === 0) {
+                usersList.innerHTML = '<p>No hay usuarios registrados.</p>';
+                return;
+            }
+
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `
+                        <strong>${user.usuario || user.email || user.id}</strong>
+                        <div class="email">ID: ${user.id}</div>
+                    `;
+                usersList.appendChild(userItem);
+            });
+        } catch (err) {
+            console.error('Error al obtener usuarios:', err);
+            usersList.innerHTML = '<p>Error al cargar usuarios.</p>';
+        }
+    }
+
+    // Actualizar contador de usuarios (si hay sesión, intenta obtener número desde API)
+    async function updateUsersCount() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            usersCount.classList.add('hidden');
+            return;
+        }
+
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const count = (data.users && data.users.length) || 0;
+            usersCount.textContent = `${count} usuarios`;
+            usersCount.classList.remove('hidden');
+        } catch (err) {
+            console.warn('No se pudo actualizar el contador de usuarios:', err);
+            usersCount.classList.add('hidden');
+        }
+    }
+
+    // Exportar a JSON / CSV (usa datos de la API)
+    exportJson.addEventListener('click', async function() {
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const users = (data.users || []).map(u => ({ usuario: u.usuario, id: u.id }));
+            const dataStr = JSON.stringify(users, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'usuarios_taller_pimentel.json';
+            link.click();
+        } catch (err) {
+            console.error('Error al exportar JSON:', err);
+            alert('No se pudo exportar.');
+        }
+    });
+
+    // Exportar a CSV
+    exportCsv.addEventListener('click', async function() {
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const users = data.users || [];
+            let csv = 'Usuario,ID\n';
+            users.forEach(u => {
+                csv += `"${u.usuario}","${u.id}"\n`;
+            });
+            const dataBlob = new Blob([csv], {type: 'text/csv'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'usuarios_taller_pimentel.csv';
+            link.click();
+        } catch (err) {
+            console.error('Error al exportar CSV:', err);
+            alert('No se pudo exportar.');
+        }
+    });
+
+    // Verificar estado de inicio de sesión
+    function checkLoginStatus() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (currentUser) {
+            // Usuario logueado
+            loginBtn.classList.add('hidden');
+            userInfo.classList.remove('hidden');
+            userName.textContent = `Bienvenido, ${currentUser.name}`;
+        } else {
+            // Usuario no logueado
+            loginBtn.classList.remove('hidden');
+            userInfo.classList.add('hidden');
+        }
+        updateUsersCount();
+    }
+
+    // Limpiar mensajes de error
+    function clearMessages() {
+        loginMessage.textContent = '';
+        registerMessage.textContent = '';
+    }
+
+    // Control de música
+    btnMusic.addEventListener('click', () => {
+        if (musica.paused) {
+            musica.play();
+            btnMusic.textContent = "🔇 Pausar Música";
+        } else {
+            musica.pause();
+            btnMusic.textContent = "🎵 Reproducir Música Suave";
+        }
+    });
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Pimentel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1E293B;
+            --secondary-color: #FACC15;
+            --accent-color: #EAB308;
+            --light-color: #f5f5f5;
+            --text-color: #1E293B;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            background-color: var(--white);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            text-align: left;
+        }
+
+        .logo-text h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .logo-text .tagline {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: var(--white);
+            background-color: rgba(250, 204, 21, 0.1);
+        }
+
+        .user-controls {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .user-controls button {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .user-controls button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .user-info {
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Sección de logotipo principal */
+        .logo-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2D3748 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .logo-hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo-hero .logo-large {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--secondary-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-hero .logo-large:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-hero-text {
+            text-align: center;
+        }
+
+        .logo-hero-text h2 {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-hero-text p {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            max-width: 600px;
+            font-weight: 500;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.8)), url('https://images.unsplash.com/photo-1603712607223-2de2915df081?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 10px auto;
+        }
+
+        /* Sección de servicios mejorada */
+        .servicios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .servicio-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .servicio-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .servicio-content {
+            padding: 20px;
+        }
+
+        .servicio-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .servicio-desc {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Botones de servicio agregados */
+        .btn-servicio {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-servicio:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Modal para detalles del servicio */
+        .servicio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .servicio-modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .servicio-detalles {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .servicio-detalles h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .servicio-detalles p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Galería mejorada */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .galeria-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .galeria-item:hover {
+            transform: scale(1.03);
+        }
+
+        .galeria-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Formularios */
+        form {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="file"], button {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .auth-toggle {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .auth-toggle a {
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Botones flotantes */
+        #btn-music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            width: auto;
+            min-width: 140px;
+            transition: background-color 0.3s;
+        }
+
+        #btn-music:hover {
+            background-color: #0056b3;
+        }
+
+        #btn-save-users {
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            z-index: 1000;
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            width: auto;
+            min-width: 140px;
+            transition: background-color 0.3s;
+        }
+
+        #btn-save-users:hover {
+            background-color: #218838;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo .logo {
+            width: 70px;
+            height: 70px;
+        }
+
+        .footer-logo-text h3 {
+            color: var(--secondary-color);
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            color: green;
+            margin-top: 10px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .users-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .user-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .user-item strong {
+            color: var(--primary-color);
+        }
+
+        .user-item .email {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .users-count {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .export-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .export-buttons button {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        #exportJson {
+            background-color: #17a2b8;
+        }
+
+        #exportCsv {
+            background-color: #6c757d;
+        }
+
+        /* Sección de contacto */
+        .contacto-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+        }
+
+        .contacto-item {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contacto-item i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--secondary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-text {
+                text-align: center;
+            }
+
+            .logo-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo-hero .logo-large {
+                width: 150px;
+                height: 150px;
+            }
+
+            .logo-hero-text h2 {
+                font-size: 2.2rem;
+            }
+
+            .logo-hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .user-controls {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+            }
+
+            #btn-music, #btn-save-users {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 5px;
+                display: inline-block;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-logo .logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 90px;
+                height: 90px;
+            }
+
+            .logo-hero .logo-large {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .logo-hero-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botón de música -->
+<button id="btn-music">🎵 Reproducir Música Suave</button>
+
+<!-- Botón para guardar y ver usuarios -->
+<button id="btn-save-users">💾 Ver Usuarios Guardados</button>
+
+<audio id="musica" loop style="display: none;">
+    <source src="Musica/permis_de_conduire.mp3.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Modal de autenticación -->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="loginForm">
+            <h2>Iniciar Sesión</h2>
+
+            <form id="loginFormElement">
+                <div class="form-group">
+                    <label for="loginEmail">Correo electrónico:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+            <div class="auth-toggle">
+                <p>¿No tienes cuenta? <a id="showRegister">Regístrate aquí</a></p>
+            </div>
+            <div id="loginMessage" class="error-message"></div>
+        </div>
+
+        <div id="registerForm" class="hidden">
+            <h2>Registrarse</h2>
+            <form id="registerFormElement">
+                <div class="form-group">
+                    <label for="registerName">Nombre completo:</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Correo electrónico:</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña:</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirmar contraseña:</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit">Registrarse</button>
+            </form>
+            <div class="auth-toggle">
+                <p>¿Ya tienes cuenta? <a id="showLogin">Inicia sesión aquí</a></p>
+            </div>
+            <div id="registerMessage" class="error-message"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de usuarios guardados -->
+<div id="usersModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Usuarios Registrados</h2>
+        <div id="usersList" class="users-list">
+            <!-- Los usuarios se cargarán aquí dinámicamente -->
+        </div>
+        <div class="export-buttons">
+            <button id="exportJson" type="button">Exportar JSON</button>
+            <button id="exportCsv" type="button">Exportar CSV</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para detalles del servicio -->
+<div id="servicioModal" class="servicio-modal">
+    <div class="servicio-modal-content">
+        <span class="close" id="closeServicioModal">&times;</span>
+        <div class="servicio-detalles">
+            <h3 id="modalServicioTitulo"></h3>
+            <p id="modalServicioDescripcion"></p>
+        </div>
+        <button id="confirmarServicio">Confirmar Servicio</button>
+    </div>
+</div>
+
+<header>
+    <div class="user-controls">
+        <div id="userInfo" class="user-info hidden">
+            <span id="userName"></span>
+            <button id="logoutBtn">Cerrar Sesión</button>
+        </div>
+        <button id="loginBtn">Iniciar Sesión / Registrarse</button>
+        <div id="usersCount" class="users-count hidden">0 usuarios</div>
+    </div>
+
+    <div class="header-content">
+        <div class="logo-container">
+            <!-- Logotipo en el header -->
+            <img src="Imagenes/taller_mecanico_pimentel.jpg" alt="Taller Pimentel" class="logo">
+            <div class="logo-text">
+                <h1>Taller Pimentel</h1>
+                <div class="tagline">Expertos en reparación automotriz</div>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Sección de logotipo principal al inicio -->
+
+
+<section id="inicio" class="hero">
+    <h2>Expertos en reparación automotriz</h2>
+    <p>Atención profesional para tu vehículo. Servicio rápido, confiable y garantizado.</p>
+</section>
+
+<section id="servicios">
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <div class="servicios-container">
+        <div class="servicio-card">
+            <img src="Imagenes/mantenimiento.jpg.jpg" alt="Mantenimiento preventivo y correctivo" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Mantenimiento</h3>
+                <p class="servicio-desc">Mantenimiento preventivo y correctivo para garantizar el óptimo funcionamiento de tu vehículo.</p>
+                <button class="btn-servicio" data-servicio="Mantenimiento" data-descripcion="Nuestro servicio de mantenimiento incluye revisión general completa, cambio de aceite y filtros, limpieza de sistemas, verificación de fluidos, y ajuste de componentes para garantizar el máximo rendimiento de tu vehículo. Realizamos mantenimiento preventivo y correctivo con repuestos de calidad.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/diagnostico computarisado.jpg.jpg" alt="Diagnóstico computarizado" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Diagnóstico</h3>
+                <p class="servicio-desc">Diagnóstico computarizado avanzado para identificar problemas de manera precisa y rápida.</p>
+                <button class="btn-servicio" data-servicio="Diagnóstico Computarizado" data-descripcion="Utilizamos equipos de diagnóstico profesional de última generación para analizar el sistema electrónico completo de tu vehículo. Identificamos fallas en sensores, módulos de control, sistemas de inyección y más. Diagnóstico preciso que ahorra tiempo y dinero en reparaciones.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/frenos y suspencion.jpg.jpg" alt="Frenos, suspensión y dirección" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Frenos y Suspensión</h3>
+                <p class="servicio-desc">Reparación y mantenimiento de frenos, suspensión y dirección para tu seguridad.</p>
+                <button class="btn-servicio" data-servicio="Frenos y Suspensión" data-descripcion="Servicio especializado en sistemas de frenos y suspensión. Incluye revisión y reemplazo de pastillas, discos, tambores, líquido de frenos, amortiguadores, resortes, alineación de dirección y balanceo de ruedas. Garantizamos tu seguridad en la carretera con componentes de alta calidad.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/sistema electrico.jpg.jpg" alt="Servicio eléctrico y afinaciones" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Sistema Eléctrico</h3>
+                <p class="servicio-desc">Servicio eléctrico especializado y afinaciones para optimizar el rendimiento de tu auto.</p>
+                <button class="btn-servicio" data-servicio="Sistema Eléctrico" data-descripcion="Expertos en reparación de sistemas eléctricos automotrices. Reparamos alternadores, baterías, sensores, luces, módulos electrónicos, cableado y sistemas de carga. También realizamos afinaciones electrónicas para optimizar el rendimiento del motor y reducir el consumo de combustible.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="galeria">
+    <h2 class="section-title">Galería</h2>
+    <div class="galeria-grid">
+        <div class="galeria-item">
+            <img src="Imagenes/mecanicos trabajando.avif" alt="Mecánico trabajando" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/trabajador.avif" alt="Taller de autos" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/taller mecanico.avif" alt="Interior del taller" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/reparacion de motores.avif" alt="Reparación de motor" class="galeria-img">
+        </div>
+    </div>
+</section>
+
+<section id="contacto">
+    <h2 class="section-title">Contacto</h2>
+    <div class="contacto-info">
+        <div class="contacto-item">
+            <i>📍</i>
+            <h3>Dirección</h3>
+            <p>Calle Principal #123, Ciudad del Sol</p>
+        </div>
+        <div class="contacto-item">
+            <i>📞</i>
+            <h3>Teléfono</h3>
+            <p>(123) 456-7890</p>
+        </div>
+        <div class="contacto-item">
+            <i>✉️</i>
+            <h3>Correo</h3>
+            <p><a href="mailto:tallerpimentel@gmail.com">tallerpimentel@gmail.com</a></p>
+        </div>
+        <div class="contacto-item">
+            <i>🕒</i>
+            <h3>Horario</h3>
+            <p>Lun - Vie: 8:00 AM - 6:00 PM<br>Sáb: 8:00 AM - 2:00 PM</p>
+        </div>
+    </div>
+    <iframe src="https://www.google.com/maps?q=Ciudad%20del%20Sol%20Mexico&output=embed" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <!-- Logotipo en el footer (local) -->
+            <img src="Imagenes/taller_mecanico_pimentel.jpg" alt="Taller Pimentel" class="logo">
+            <div class="footer-logo-text">
+                <h3>Taller Pimentel</h3>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#galeria">Galería</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+        <p>© 2025 Taller Pimentel - Todos los derechos reservados</p>
+    </div>
+</footer>
+
+<script>
+    // Elementos del DOM
+    const authModal = document.getElementById('authModal');
+    const usersModal = document.getElementById('usersModal');
+    const servicioModal = document.getElementById('servicioModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userInfo = document.getElementById('userInfo');
+    const userName = document.getElementById('userName');
+    const usersCount = document.getElementById('usersCount');
+    const closeModal = document.querySelectorAll('.close');
+    const showRegister = document.getElementById('showRegister');
+    const showLogin = document.getElementById('showLogin');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const loginFormElement = document.getElementById('loginFormElement');
+    const registerFormElement = document.getElementById('registerFormElement');
+    const loginMessage = document.getElementById('loginMessage');
+    const registerMessage = document.getElementById('registerMessage');
+    const btnSaveUsers = document.getElementById('btn-save-users');
+    const usersList = document.getElementById('usersList');
+    const exportJson = document.getElementById('exportJson');
+    const exportCsv = document.getElementById('exportCsv');
+
+    // Elementos de audio
+    const btnMusic = document.getElementById('btn-music');
+    const musica = document.getElementById('musica');
+
+    // Elementos del modal de servicio
+    const modalServicioTitulo = document.getElementById('modalServicioTitulo');
+    const modalServicioDescripcion = document.getElementById('modalServicioDescripcion');
+    const confirmarServicio = document.getElementById('confirmarServicio');
+    const closeServicioModal = document.getElementById('closeServicioModal');
+
+    // Verificar si hay un usuario logueado al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLoginStatus();
+        updateUsersCount();
+        setupServiceButtons();
+    });
+
+    // Configurar botones de servicio
+    function setupServiceButtons() {
+        const serviceButtons = document.querySelectorAll('.btn-servicio');
+        serviceButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const servicio = this.getAttribute('data-servicio');
+                const descripcion = this.getAttribute('data-descripcion');
+
+                modalServicioTitulo.textContent = servicio;
+                modalServicioDescripcion.textContent = descripcion;
+                servicioModal.style.display = 'flex';
+            });
+        });
+    }
+
+    // Confirmar servicio
+    confirmarServicio.addEventListener('click', function() {
+        const servicio = modalServicioTitulo.textContent;
+        alert(`✅ Has seleccionado el servicio: ${servicio}\n\nPronto nos pondremos en contacto contigo para coordinar los detalles.`);
+        servicioModal.style.display = 'none';
+    });
+
+    // Cerrar modal de servicio
+    closeServicioModal.addEventListener('click', function() {
+        servicioModal.style.display = 'none';
+    });
+
+    // Cerrar modal de servicio al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        if (event.target === servicioModal) {
+            servicioModal.style.display = 'none';
+        }
+    });
+
+    // Abrir modal de autenticación
+    loginBtn.addEventListener('click', function() {
+        authModal.style.display = 'flex';
+    });
+
+    // Abrir modal de usuarios
+    btnSaveUsers.addEventListener('click', function() {
+        showUsersList();
+        usersModal.style.display = 'flex';
+    });
+
+    // Cerrar modales
+    closeModal.forEach(closeBtn => {
+        closeBtn.addEventListener('click', function() {
+            authModal.style.display = 'none';
+            usersModal.style.display = 'none';
+        });
+    });
+
+    // Cambiar a formulario de registro
+    showRegister.addEventListener('click', function() {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        clearMessages();
+    });
+
+    // Cambiar a formulario de inicio de sesión
+    showLogin.addEventListener('click', function() {
+        registerForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+        clearMessages();
+    });
+
+    // Cerrar modal al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        if (event.target === authModal) {
+            authModal.style.display = 'none';
+        }
+        if (event.target === usersModal) {
+            usersModal.style.display = 'none';
+        }
+    });
+
+    // Iniciar sesión (usa la API /api/login)
+    loginFormElement.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            const resp = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: email, contra: password })
+            });
+            const data = await resp.json();
+            if (!data.ok) {
+                loginMessage.textContent = data.message || 'Credenciales incorrectas';
+                return;
+            }
+
+            // Guardar sesión local (añadimos un nombre si no existe)
+            const serverUser = data.user;
+            const clientUser = {
+                id: serverUser.id,
+                name: serverUser.usuario || serverUser.id,
+                email: serverUser.usuario || serverUser.id
+            };
+            localStorage.setItem('currentUser', JSON.stringify(clientUser));
+            checkLoginStatus();
+            authModal.style.display = 'none';
+            clearMessages();
+            loginFormElement.reset();
+            updateUsersCount();
+            // Si el login se realizó desde la página pública (inicio.html o '/'), redirigir al dashboard
+            if (window.location.pathname === '/' || window.location.pathname.endsWith('inicio.html')) {
+                window.location.href = '/views/index.html';
+            }
+        } catch (err) {
+            console.error('Error en login:', err);
+            loginMessage.textContent = 'Error de conexión. Intenta más tarde.';
+        }
+    });
+
+    // Registrarse (usa la API /api/register)
+    registerFormElement.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+        // Validaciones
+        if (password !== confirmPassword) {
+            registerMessage.textContent = 'Las contraseñas no coinciden.';
+            return;
+        }
+
+        if (password.length < 6) {
+            registerMessage.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+            return;
+        }
+
+        try {
+            const resp = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: email, contra: password })
+            });
+            const data = await resp.json();
+            if (!data.ok) {
+                registerMessage.textContent = data.message || 'No se pudo registrar el usuario.';
+                return;
+            }
+
+            // Guardar sesión local con nombre provisto por el form
+            const serverUser = data.user;
+            const clientUser = {
+                id: serverUser.id,
+                name: name || serverUser.usuario,
+                email: serverUser.usuario
+            };
+            localStorage.setItem('currentUser', JSON.stringify(clientUser));
+            checkLoginStatus();
+            authModal.style.display = 'none';
+            clearMessages();
+            registerFormElement.reset();
+            updateUsersCount();
+            // Si el registro se hizo desde la página pública, llevar al dashboard
+            if (window.location.pathname === '/' || window.location.pathname.endsWith('inicio.html')) {
+                window.location.href = '/views/index.html';
+            }
+        } catch (err) {
+            console.error('Error al registrar:', err);
+            registerMessage.textContent = 'Error de conexión. Intenta más tarde.';
+        }
+    });
+
+    // Cerrar sesión
+    logoutBtn.addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        checkLoginStatus();
+        // Volver a la página pública de inicio
+        window.location.href = '/';
+    });
+
+    // Mostrar lista de usuarios (consume /api/users)
+    async function showUsersList() {
+        usersList.innerHTML = '';
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            if (!data.ok) {
+                usersList.innerHTML = '<p>No se pudieron obtener los usuarios.</p>';
+                return;
+            }
+
+            const users = data.users || [];
+            if (users.length === 0) {
+                usersList.innerHTML = '<p>No hay usuarios registrados.</p>';
+                return;
+            }
+
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `
+                        <strong>${user.usuario || user.email || user.id}</strong>
+                        <div class="email">ID: ${user.id}</div>
+                    `;
+                usersList.appendChild(userItem);
+            });
+        } catch (err) {
+            console.error('Error al obtener usuarios:', err);
+            usersList.innerHTML = '<p>Error al cargar usuarios.</p>';
+        }
+    }
+
+    // Actualizar contador de usuarios (si hay sesión, intenta obtener número desde API)
+    async function updateUsersCount() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            usersCount.classList.add('hidden');
+            return;
+        }
+
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const count = (data.users && data.users.length) || 0;
+            usersCount.textContent = `${count} usuarios`;
+            usersCount.classList.remove('hidden');
+        } catch (err) {
+            console.warn('No se pudo actualizar el contador de usuarios:', err);
+            usersCount.classList.add('hidden');
+        }
+    }
+
+    // Exportar a JSON / CSV (usa datos de la API)
+    exportJson.addEventListener('click', async function() {
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const users = (data.users || []).map(u => ({ usuario: u.usuario, id: u.id }));
+            const dataStr = JSON.stringify(users, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'usuarios_taller_pimentel.json';
+            link.click();
+        } catch (err) {
+            console.error('Error al exportar JSON:', err);
+            alert('No se pudo exportar.');
+        }
+    });
+
+    // Exportar a CSV
+    exportCsv.addEventListener('click', async function() {
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const users = data.users || [];
+            let csv = 'Usuario,ID\n';
+            users.forEach(u => {
+                csv += `"${u.usuario}","${u.id}"\n`;
+            });
+            const dataBlob = new Blob([csv], {type: 'text/csv'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'usuarios_taller_pimentel.csv';
+            link.click();
+        } catch (err) {
+            console.error('Error al exportar CSV:', err);
+            alert('No se pudo exportar.');
+        }
+    });
+
+    // Verificar estado de inicio de sesión
+    function checkLoginStatus() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (currentUser) {
+            // Usuario logueado
+            loginBtn.classList.add('hidden');
+            userInfo.classList.remove('hidden');
+            userName.textContent = `Bienvenido, ${currentUser.name}`;
+        } else {
+            // Usuario no logueado
+            loginBtn.classList.remove('hidden');
+            userInfo.classList.add('hidden');
+        }
+        updateUsersCount();
+    }
+
+    // Limpiar mensajes de error
+    function clearMessages() {
+        loginMessage.textContent = '';
+        registerMessage.textContent = '';
+    }
+
+    // Control de música
+    btnMusic.addEventListener('click', () => {
+        if (musica.paused) {
+            musica.play();
+            btnMusic.textContent = "🔇 Pausar Música";
+        } else {
+            musica.pause();
+            btnMusic.textContent = "🎵 Reproducir Música Suave";
+        }
+    });
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Pimentel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1E293B;
+            --secondary-color: #FACC15;
+            --accent-color: #EAB308;
+            --light-color: #f5f5f5;
+            --text-color: #1E293B;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            background-color: var(--white);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            text-align: left;
+        }
+
+        .logo-text h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .logo-text .tagline {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: var(--white);
+            background-color: rgba(250, 204, 21, 0.1);
+        }
+
+        .user-controls {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .user-controls button {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+
+        .user-controls button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .user-info {
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Sección de logotipo principal */
+        .logo-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2D3748 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .logo-hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo-hero .logo-large {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--secondary-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-hero .logo-large:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-hero-text {
+            text-align: center;
+        }
+
+        .logo-hero-text h2 {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-hero-text p {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            max-width: 600px;
+            font-weight: 500;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.8)), url('https://images.unsplash.com/photo-1603712607223-2de2915df081?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 10px auto;
+        }
+
+        /* Sección de servicios mejorada */
+        .servicios-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .servicio-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .servicio-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .servicio-content {
+            padding: 20px;
+        }
+
+        .servicio-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .servicio-desc {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Botones de servicio agregados */
+        .btn-servicio {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-servicio:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Modal para detalles del servicio */
+        .servicio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .servicio-modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .servicio-detalles {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .servicio-detalles h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .servicio-detalles p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Galería mejorada */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .galeria-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .galeria-item:hover {
+            transform: scale(1.03);
+        }
+
+        .galeria-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Formularios */
+        form {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="file"], button {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .auth-toggle {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .auth-toggle a {
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Botones flotantes */
+        #btn-music {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            width: auto;
+            min-width: 140px;
+            transition: background-color 0.3s;
+        }
+
+        #btn-music:hover {
+            background-color: #0056b3;
+        }
+
+        #btn-save-users {
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            z-index: 1000;
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            width: auto;
+            min-width: 140px;
+            transition: background-color 0.3s;
+        }
+
+        #btn-save-users:hover {
+            background-color: #218838;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo .logo {
+            width: 70px;
+            height: 70px;
+        }
+
+        .footer-logo-text h3 {
+            color: var(--secondary-color);
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            color: green;
+            margin-top: 10px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .users-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .user-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .user-item strong {
+            color: var(--primary-color);
+        }
+
+        .user-item .email {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .users-count {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .export-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .export-buttons button {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        #exportJson {
+            background-color: #17a2b8;
+        }
+
+        #exportCsv {
+            background-color: #6c757d;
+        }
+
+        /* Sección de contacto */
+        .contacto-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+        }
+
+        .contacto-item {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contacto-item i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--secondary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-text {
+                text-align: center;
+            }
+
+            .logo-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo-hero .logo-large {
+                width: 150px;
+                height: 150px;
+            }
+
+            .logo-hero-text h2 {
+                font-size: 2.2rem;
+            }
+
+            .logo-hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .user-controls {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+            }
+
+            #btn-music, #btn-save-users {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 5px;
+                display: inline-block;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-logo .logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 90px;
+                height: 90px;
+            }
+
+            .logo-hero .logo-large {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .logo-hero-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botón de música -->
+<button id="btn-music">🎵 Reproducir Música Suave</button>
+
+<!-- Botón para guardar y ver usuarios -->
+<button id="btn-save-users">💾 Ver Usuarios Guardados</button>
+
+<audio id="musica" loop style="display: none;">
+    <source src="Musica/permis_de_conduire.mp3.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Modal de autenticación -->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="loginForm">
+            <h2>Iniciar Sesión</h2>
+
+            <form id="loginFormElement">
+                <div class="form-group">
+                    <label for="loginEmail">Correo electrónico:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+            <div class="auth-toggle">
+                <p>¿No tienes cuenta? <a id="showRegister">Regístrate aquí</a></p>
+            </div>
+            <div id="loginMessage" class="error-message"></div>
+        </div>
+
+        <div id="registerForm" class="hidden">
+            <h2>Registrarse</h2>
+            <form id="registerFormElement">
+                <div class="form-group">
+                    <label for="registerName">Nombre completo:</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Correo electrónico:</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña:</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirmar contraseña:</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <button type="submit">Registrarse</button>
+            </form>
+            <div class="auth-toggle">
+                <p>¿Ya tienes cuenta? <a id="showLogin">Inicia sesión aquí</a></p>
+            </div>
+            <div id="registerMessage" class="error-message"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de usuarios guardados -->
+<div id="usersModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Usuarios Registrados</h2>
+        <div id="usersList" class="users-list">
+            <!-- Los usuarios se cargarán aquí dinámicamente -->
+        </div>
+        <div class="export-buttons">
+            <button id="exportJson" type="button">Exportar JSON</button>
+            <button id="exportCsv" type="button">Exportar CSV</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para detalles del servicio -->
+<div id="servicioModal" class="servicio-modal">
+    <div class="servicio-modal-content">
+        <span class="close" id="closeServicioModal">&times;</span>
+        <div class="servicio-detalles">
+            <h3 id="modalServicioTitulo"></h3>
+            <p id="modalServicioDescripcion"></p>
+        </div>
+        <button id="confirmarServicio">Confirmar Servicio</button>
+    </div>
+</div>
+
+<header>
+    <div class="user-controls">
+        <div id="userInfo" class="user-info hidden">
+            <span id="userName"></span>
+            <button id="logoutBtn">Cerrar Sesión</button>
+        </div>
+        <button id="loginBtn">Iniciar Sesión / Registrarse</button>
+        <div id="usersCount" class="users-count hidden">0 usuarios</div>
+    </div>
+
+    <div class="header-content">
+        <div class="logo-container">
+            <!-- Logotipo en el header -->
+            <img src="Imagenes/taller_mecanico_pimentel.jpg" alt="Taller Pimentel" class="logo">
+            <div class="logo-text">
+                <h1>Taller Pimentel</h1>
+                <div class="tagline">Expertos en reparación automotriz</div>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Sección de logotipo principal al inicio -->
+
+
+<section id="inicio" class="hero">
+    <h2>Expertos en reparación automotriz</h2>
+    <p>Atención profesional para tu vehículo. Servicio rápido, confiable y garantizado.</p>
+</section>
+
+<section id="servicios">
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <div class="servicios-container">
+        <div class="servicio-card">
+            <img src="Imagenes/mantenimiento.jpg.jpg" alt="Mantenimiento preventivo y correctivo" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Mantenimiento</h3>
+                <p class="servicio-desc">Mantenimiento preventivo y correctivo para garantizar el óptimo funcionamiento de tu vehículo.</p>
+                <button class="btn-servicio" data-servicio="Mantenimiento" data-descripcion="Nuestro servicio de mantenimiento incluye revisión general completa, cambio de aceite y filtros, limpieza de sistemas, verificación de fluidos, y ajuste de componentes para garantizar el máximo rendimiento de tu vehículo. Realizamos mantenimiento preventivo y correctivo con repuestos de calidad.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/diagnostico computarisado.jpg.jpg" alt="Diagnóstico computarizado" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Diagnóstico</h3>
+                <p class="servicio-desc">Diagnóstico computarizado avanzado para identificar problemas de manera precisa y rápida.</p>
+                <button class="btn-servicio" data-servicio="Diagnóstico Computarizado" data-descripcion="Utilizamos equipos de diagnóstico profesional de última generación para analizar el sistema electrónico completo de tu vehículo. Identificamos fallas en sensores, módulos de control, sistemas de inyección y más. Diagnóstico preciso que ahorra tiempo y dinero en reparaciones.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/frenos y suspencion.jpg.jpg" alt="Frenos, suspensión y dirección" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Frenos y Suspensión</h3>
+                <p class="servicio-desc">Reparación y mantenimiento de frenos, suspensión y dirección para tu seguridad.</p>
+                <button class="btn-servicio" data-servicio="Frenos y Suspensión" data-descripcion="Servicio especializado en sistemas de frenos y suspensión. Incluye revisión y reemplazo de pastillas, discos, tambores, líquido de frenos, amortiguadores, resortes, alineación de dirección y balanceo de ruedas. Garantizamos tu seguridad en la carretera con componentes de alta calidad.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+        <div class="servicio-card">
+            <img src="Imagenes/sistema electrico.jpg.jpg" alt="Servicio eléctrico y afinaciones" class="servicio-img">
+            <div class="servicio-content">
+                <h3 class="servicio-title">Sistema Eléctrico</h3>
+                <p class="servicio-desc">Servicio eléctrico especializado y afinaciones para optimizar el rendimiento de tu auto.</p>
+                <button class="btn-servicio" data-servicio="Sistema Eléctrico" data-descripcion="Expertos en reparación de sistemas eléctricos automotrices. Reparamos alternadores, baterías, sensores, luces, módulos electrónicos, cableado y sistemas de carga. También realizamos afinaciones electrónicas para optimizar el rendimiento del motor y reducir el consumo de combustible.">
+                    Seleccionar Servicio
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="galeria">
+    <h2 class="section-title">Galería</h2>
+    <div class="galeria-grid">
+        <div class="galeria-item">
+            <img src="Imagenes/mecanicos trabajando.avif" alt="Mecánico trabajando" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/trabajador.avif" alt="Taller de autos" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/taller mecanico.avif" alt="Interior del taller" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+            <img src="Imagenes/reparacion de motores.avif" alt="Reparación de motor" class="galeria-img">
+        </div>
+    </div>
+</section>
+
+<section id="contacto">
+    <h2 class="section-title">Contacto</h2>
+    <div class="contacto-info">
+        <div class="contacto-item">
+            <i>📍</i>
+            <h3>Dirección</h3>
+            <p>Calle Principal #123, Ciudad del Sol</p>
+        </div>
+        <div class="contacto-item">
+            <i>📞</i>
+            <h3>Teléfono</h3>
+            <p>(123) 456-7890</p>
+        </div>
+        <div class="contacto-item">
+            <i>✉️</i>
+            <h3>Correo</h3>
+            <p><a href="mailto:tallerpimentel@gmail.com">tallerpimentel@gmail.com</a></p>
+        </div>
+        <div class="contacto-item">
+            <i>🕒</i>
+            <h3>Horario</h3>
+            <p>Lun - Vie: 8:00 AM - 6:00 PM<br>Sáb: 8:00 AM - 2:00 PM</p>
+        </div>
+    </div>
+    <iframe src="https://www.google.com/maps?q=Ciudad%20del%20Sol%20Mexico&output=embed" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <!-- Logotipo en el footer (local) -->
+            <img src="Imagenes/taller_mecanico_pimentel.jpg" alt="Taller Pimentel" class="logo">
+            <div class="footer-logo-text">
+                <h3>Taller Pimentel</h3>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#galeria">Galería</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+        <p>© 2025 Taller Pimentel - Todos los derechos reservados</p>
+    </div>
+</footer>
+
+<script>
+    // Elementos del DOM
+    const authModal = document.getElementById('authModal');
+    const usersModal = document.getElementById('usersModal');
+    const servicioModal = document.getElementById('servicioModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userInfo = document.getElementById('userInfo');
+    const userName = document.getElementById('userName');
+    const usersCount = document.getElementById('usersCount');
+    const closeModal = document.querySelectorAll('.close');
+    const showRegister = document.getElementById('showRegister');
+    const showLogin = document.getElementById('showLogin');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const loginFormElement = document.getElementById('loginFormElement');
+    const registerFormElement = document.getElementById('registerFormElement');
+    const loginMessage = document.getElementById('loginMessage');
+    const registerMessage = document.getElementById('registerMessage');
+    const btnSaveUsers = document.getElementById('btn-save-users');
+    const usersList = document.getElementById('usersList');
+    const exportJson = document.getElementById('exportJson');
+    const exportCsv = document.getElementById('exportCsv');
+
+    // Elementos de audio
+    const btnMusic = document.getElementById('btn-music');
+    const musica = document.getElementById('musica');
+
+    // Elementos del modal de servicio
+    const modalServicioTitulo = document.getElementById('modalServicioTitulo');
+    const modalServicioDescripcion = document.getElementById('modalServicioDescripcion');
+    const confirmarServicio = document.getElementById('confirmarServicio');
+    const closeServicioModal = document.getElementById('closeServicioModal');
+
+    // Verificar si hay un usuario logueado al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLoginStatus();
+        updateUsersCount();
+        setupServiceButtons();
+    });
+
+    // Configurar botones de servicio
+    function setupServiceButtons() {
+        const serviceButtons = document.querySelectorAll('.btn-servicio');
+        serviceButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const servicio = this.getAttribute('data-servicio');
+                const descripcion = this.getAttribute('data-descripcion');
+
+                modalServicioTitulo.textContent = servicio;
+                modalServicioDescripcion.textContent = descripcion;
+                servicioModal.style.display = 'flex';
+            });
+        });
+    }
+
+    // Confirmar servicio
+    confirmarServicio.addEventListener('click', function() {
+        const servicio = modalServicioTitulo.textContent;
+        alert(`✅ Has seleccionado el servicio: ${servicio}\n\nPronto nos pondremos en contacto contigo para coordinar los detalles.`);
+        servicioModal.style.display = 'none';
+    });
+
+    // Cerrar modal de servicio
+    closeServicioModal.addEventListener('click', function() {
+        servicioModal.style.display = 'none';
+    });
+
+    // Cerrar modal de servicio al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        if (event.target === servicioModal) {
+            servicioModal.style.display = 'none';
+        }
+    });
+
+    // Abrir modal de autenticación
+    loginBtn.addEventListener('click', function() {
+        authModal.style.display = 'flex';
+    });
+
+    // Abrir modal de usuarios
+    btnSaveUsers.addEventListener('click', function() {
+        showUsersList();
+        usersModal.style.display = 'flex';
+    });
+
+    // Cerrar modales
+    closeModal.forEach(closeBtn => {
+        closeBtn.addEventListener('click', function() {
+            authModal.style.display = 'none';
+            usersModal.style.display = 'none';
+        });
+    });
+
+    // Cambiar a formulario de registro
+    showRegister.addEventListener('click', function() {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        clearMessages();
+    });
+
+    // Cambiar a formulario de inicio de sesión
+    showLogin.addEventListener('click', function() {
+        registerForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+        clearMessages();
+    });
+
+    // Cerrar modal al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        if (event.target === authModal) {
+            authModal.style.display = 'none';
+        }
+        if (event.target === usersModal) {
+            usersModal.style.display = 'none';
+        }
+    });
+
+    // Iniciar sesión (usa la API /api/login)
+    loginFormElement.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            const resp = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: email, contra: password })
+            });
+            const data = await resp.json();
+            if (!data.ok) {
+                loginMessage.textContent = data.message || 'Credenciales incorrectas';
+                return;
+            }
+
+            // Guardar sesión local (añadimos un nombre si no existe)
+            const serverUser = data.user;
+            const clientUser = {
+                id: serverUser.id,
+                name: serverUser.usuario || serverUser.id,
+                email: serverUser.usuario || serverUser.id
+            };
+            localStorage.setItem('currentUser', JSON.stringify(clientUser));
+            checkLoginStatus();
+            authModal.style.display = 'none';
+            clearMessages();
+            loginFormElement.reset();
+            updateUsersCount();
+            // Si el login se realizó desde la página pública (inicio.html o '/'), redirigir al dashboard
+            if (window.location.pathname === '/' || window.location.pathname.endsWith('inicio.html')) {
+                window.location.href = '/views/index.html';
+            }
+        } catch (err) {
+            console.error('Error en login:', err);
+            loginMessage.textContent = 'Error de conexión. Intenta más tarde.';
+        }
+    });
+
+    // Registrarse (usa la API /api/register)
+    registerFormElement.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+        // Validaciones
+        if (password !== confirmPassword) {
+            registerMessage.textContent = 'Las contraseñas no coinciden.';
+            return;
+        }
+
+        if (password.length < 6) {
+            registerMessage.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+            return;
+        }
+
+        try {
+            const resp = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: email, contra: password })
+            });
+            const data = await resp.json();
+            if (!data.ok) {
+                registerMessage.textContent = data.message || 'No se pudo registrar el usuario.';
+                return;
+            }
+
+            // Guardar sesión local con nombre provisto por el form
+            const serverUser = data.user;
+            const clientUser = {
+                id: serverUser.id,
+                name: name || serverUser.usuario,
+                email: serverUser.usuario
+            };
+            localStorage.setItem('currentUser', JSON.stringify(clientUser));
+            checkLoginStatus();
+            authModal.style.display = 'none';
+            clearMessages();
+            registerFormElement.reset();
+            updateUsersCount();
+            // Si el registro se hizo desde la página pública, llevar al dashboard
+            if (window.location.pathname === '/' || window.location.pathname.endsWith('inicio.html')) {
+                window.location.href = '/views/index.html';
+            }
+        } catch (err) {
+            console.error('Error al registrar:', err);
+            registerMessage.textContent = 'Error de conexión. Intenta más tarde.';
+        }
+    });
+
+    // Cerrar sesión
+    logoutBtn.addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        checkLoginStatus();
+        // Volver a la página pública de inicio
+        window.location.href = '/';
+    });
+
+    // Mostrar lista de usuarios (consume /api/users)
+    async function showUsersList() {
+        usersList.innerHTML = '';
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            if (!data.ok) {
+                usersList.innerHTML = '<p>No se pudieron obtener los usuarios.</p>';
+                return;
+            }
+
+            const users = data.users || [];
+            if (users.length === 0) {
+                usersList.innerHTML = '<p>No hay usuarios registrados.</p>';
+                return;
+            }
+
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `
+                        <strong>${user.usuario || user.email || user.id}</strong>
+                        <div class="email">ID: ${user.id}</div>
+                    `;
+                usersList.appendChild(userItem);
+            });
+        } catch (err) {
+            console.error('Error al obtener usuarios:', err);
+            usersList.innerHTML = '<p>Error al cargar usuarios.</p>';
+        }
+    }
+
+    // Actualizar contador de usuarios (si hay sesión, intenta obtener número desde API)
+    async function updateUsersCount() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            usersCount.classList.add('hidden');
+            return;
+        }
+
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const count = (data.users && data.users.length) || 0;
+            usersCount.textContent = `${count} usuarios`;
+            usersCount.classList.remove('hidden');
+        } catch (err) {
+            console.warn('No se pudo actualizar el contador de usuarios:', err);
+            usersCount.classList.add('hidden');
+        }
+    }
+
+    // Exportar a JSON / CSV (usa datos de la API)
+    exportJson.addEventListener('click', async function() {
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const users = (data.users || []).map(u => ({ usuario: u.usuario, id: u.id }));
+            const dataStr = JSON.stringify(users, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'usuarios_taller_pimentel.json';
+            link.click();
+        } catch (err) {
+            console.error('Error al exportar JSON:', err);
+            alert('No se pudo exportar.');
+        }
+    });
+
+    // Exportar a CSV
+    exportCsv.addEventListener('click', async function() {
+        try {
+            const resp = await fetch('/api/users');
+            const data = await resp.json();
+            const users = data.users || [];
+            let csv = 'Usuario,ID\n';
+            users.forEach(u => {
+                csv += `"${u.usuario}","${u.id}"\n`;
+            });
+            const dataBlob = new Blob([csv], {type: 'text/csv'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'usuarios_taller_pimentel.csv';
+            link.click();
+        } catch (err) {
+            console.error('Error al exportar CSV:', err);
+            alert('No se pudo exportar.');
+        }
+    });
+
+    // Verificar estado de inicio de sesión
+    function checkLoginStatus() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (currentUser) {
+            // Usuario logueado
+            loginBtn.classList.add('hidden');
+            userInfo.classList.remove('hidden');
+            userName.textContent = `Bienvenido, ${currentUser.name}`;
+        } else {
+            // Usuario no logueado
+            loginBtn.classList.remove('hidden');
+            userInfo.classList.add('hidden');
+        }
+        updateUsersCount();
+    }
+
+    // Limpiar mensajes de error
+    function clearMessages() {
+        loginMessage.textContent = '';
+        registerMessage.textContent = '';
+    }
+
+    // Control de música
+    btnMusic.addEventListener('click', () => {
+        if (musica.paused) {
+            musica.play();
+            btnMusic.textContent = "🔇 Pausar Música";
+        } else {
+            musica.pause();
+            btnMusic.textContent = "🎵 Reproducir Música Suave";
+        }
+    });
+</script>
+
+</body>
+</html>
